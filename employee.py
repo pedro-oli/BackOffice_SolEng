@@ -26,7 +26,7 @@ class Employee(object):
     def _translate(cpf):
         return "".join(re.findall("\\d", cpf))
 
-    # Generates CPF"s last digit
+    # Generates CPF's last digit
     @staticmethod
     def _gen(cpf):
         res = []
@@ -43,9 +43,11 @@ class Employee(object):
 
     def __init__(self, name, cpf, salary, position, marital_status):
         self.name = name
-        self.salary = salary
+        self.salary = float(salary)
         self.position = position
         self.marital_status = marital_status
+        # Saves unparsed CPF
+        self.cpf_str = cpf
 
         # Parses CPF
         if isinstance(cpf, str):
