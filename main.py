@@ -6,7 +6,7 @@ from requests.exceptions import HTTPError, RequestException, Timeout
 from xml.etree.ElementTree import fromstring
 
 if __name__ == "__main__":
-    # Resposta 4 (v. linha 76)
+    # List da resposta 4 (ver linha 74)
     resposta_4 = []
     try:
         response = requests.get("https://storage.googleapis.com/psel-2021/soleng&backoffice/Psel2021.xml")
@@ -25,17 +25,16 @@ if __name__ == "__main__":
             position = item.findtext("position")
             marital_status = item.findtext("marital_status")
             new_employee = employee.Employee(name, cpf, salary, position, marital_status)
+            employees.append(new_employee)
 
-            # Resposta 4 (v. linha 76)
-            if position != "COORDENADOR" and marital_status != "CASADO":
+            # Preenchimento da List da resposta 4 (ver linha 74)
+            if not (position == "COORDENADOR" and marital_status == "CASADO"):
                 resposta_4.append({
                     "valid_cpf": new_employee.is_cpf_valid(),
                     "name": name,
                     "CPF": cpf,
                     "possibles_origin": new_employee.possible_states()
                 })
-
-            employees.append(new_employee)
 
     # 1. Funcionários ordenados por salário (decrescente)
     resposta_1_instances = sorted(employees, key=operator.attrgetter("salary"), reverse=True)
@@ -84,7 +83,7 @@ if __name__ == "__main__":
 
     # Compilar respostas
     resposta_dict = {
-        "api_key": "",
+        "api_key": "dfa8e106-2255-4601-b726-703f6529bb15",
         "full_name": "Pedro Henrique Siqueira de Oliveira",
         "email": "pedro.oliveira@raccoon.ag",
         "code_link": "https://gitlab.com/pedro-oli/BackOffice_SolEng",
@@ -95,6 +94,6 @@ if __name__ == "__main__":
         "response_5": resposta_5,
     }
 
-    #resposta_json = json.dumps(resposta_dict, indent=2) # talvez seja esse o certo, e o debaixo é só pra imprimir no console # !!APAGAR ISSO DEPOIS!!
-    resposta_json = json.dumps(resposta_dict, indent=2, ensure_ascii=False).encode('utf8')
-    print(resposta_json.decode())
+    resposta_json = json.dumps(resposta_dict, indent=2, ensure_ascii=False)
+    server_response = requests.post("http://localhost:5000", json=resposta_json) # teste sem a URL real
+    print("Server response:", server_response.text)
