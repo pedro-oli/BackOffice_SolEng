@@ -46,6 +46,7 @@ class Employee(object):
         self.salary = float(salary)
         self.position = position
         self.marital_status = marital_status
+
         # Saves unparsed CPF
         self.cpf_str = cpf
 

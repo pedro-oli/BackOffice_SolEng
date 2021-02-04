@@ -86,7 +86,7 @@ if __name__ == "__main__":
         "api_key": "dfa8e106-2255-4601-b726-703f6529bb15",
         "full_name": "Pedro Henrique Siqueira de Oliveira",
         "email": "pedro.oliveira@raccoon.ag",
-        "code_link": "https://gitlab.com/pedro-oli/BackOffice_SolEng",
+        "code_link": "https://github.com/pedro-oli/BackOffice_SolEng",
         "response_1": resposta_1,
         "response_2": resposta_2,
         "response_3": resposta_3,
@@ -95,5 +95,5 @@ if __name__ == "__main__":
     }
 
     resposta_json = json.dumps(resposta_dict, indent=2, ensure_ascii=False)
-    server_response = requests.post("http://localhost:5000", json=resposta_json) # teste sem a URL real
+    server_response = requests.post("https://us-central1-psel-solution.cloudfunctions.net/first-2021", json=resposta_json)
     print("Server response:", server_response.text)
